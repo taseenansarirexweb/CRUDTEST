@@ -1,0 +1,66 @@
+<!DOCTYPE htm>
+<html>
+    <head>
+        <title>CRUD</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <h2>CRUD TEST</h2>
+            <input type="text" value="" placeholder="enter word" name="work">
+            <button id="btn" onclick="add()">add/update</button>
+
+            <h3>Cars</h3><br>
+                
+            <ul id ="table">
+                
+            </ul>
+
+        <script>
+            let table= '';
+            let car = [];
+            function add(id){
+                table = '';
+                let value1 = document.getElementsByName("work")[0].value;
+                car.push(value1);
+                console.log(car)
+                for(let i=0;i<car.length;i++){
+                    table += `<li>${car[i]} <Button id="${i}" onclick="del(id)">Delete</button><button id="${i}" onclick="select(id)">Select</button></li>`;
+                    }
+                document.getElementById('table').innerHTML=table;
+            }
+            function del(id){
+                table = '';
+                car.splice(Number(id),Number(id)+1);
+                for(let i=0;i<car.length;i++){
+                    table +=`<li>${car[i]} <Button id="${i}" onclick="del(id)">Delete</button><button id="${i}" onclick="select(id)">Select</button></li>`;
+                    }
+                document.getElementById('table').innerHTML=table;
+                console.log(car)
+            }
+            function select(id){
+                document.getElementsByName("work")[0].value = car[id];
+                document.getElementById('btn').setAttribute("onclick",`update(${id})`);
+            }
+            function update(id){
+                table = '';
+                car[Number(id)] = document.getElementsByName("work")[0].value;
+                console.log(car)
+                for(let i=0;i<car.length;i++){
+                    table += `<li>${car[i]} <Button id="${i}" onclick="del(id)">Delete</button><button id="${i}" onclick="select(id)">Select</button></li>`;
+                    }
+                document.getElementById('table').innerHTML= table;
+                document.getElementById("btn").setAttribute("onclick","add(id)");
+            }
+
+        </script>
+    </body>
+</html>
